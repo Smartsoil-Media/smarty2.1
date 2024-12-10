@@ -97,12 +97,8 @@ type Params = {
   courseId: string;
 }
 
-type Props = {
-  params: Params;
-}
-
 export async function generateMetadata(
-  { params }: Props
+  { params }: { params: Params }
 ): Promise<Metadata> {
   const course = await getCourse(params.courseId)
   
@@ -117,7 +113,7 @@ export async function generateMetadata(
   }
 }
 
-export default async function CoursePage({ params }: Props) {
+export default async function CoursePage({ params }: { params: Params }) {
   const course = await getCourse(params.courseId)
 
   if (!course) {
