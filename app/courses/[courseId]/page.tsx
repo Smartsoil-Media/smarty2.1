@@ -93,8 +93,16 @@ async function getCourse(courseId: string) {
   return courses.find(course => course.id === courseId)
 }
 
+type Params = {
+  courseId: string;
+}
+
+type Props = {
+  params: Params;
+}
+
 export async function generateMetadata(
-  { params }: { params: { courseId: string } }
+  { params }: Props
 ): Promise<Metadata> {
   const course = await getCourse(params.courseId)
   
@@ -109,11 +117,7 @@ export async function generateMetadata(
   }
 }
 
-interface CoursePageProps {
-  params: { courseId: string }
-}
-
-export default async function CoursePage({ params }: CoursePageProps) {
+export default async function CoursePage({ params }: Props) {
   const course = await getCourse(params.courseId)
 
   if (!course) {
